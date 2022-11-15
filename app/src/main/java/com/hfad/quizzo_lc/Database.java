@@ -10,28 +10,35 @@ import java.util.Collections;
  */
 public class Database {
 
-    private static ArrayList<Question> questions; //arraylist of questions
-    private static ArrayList<String> genres; //arraylist of genres
+    private ArrayList<Question> questions; //arraylist of questions
+    private ArrayList<String> genres; //arraylist of genres
+    private static Database data;
+
+    private Database()
+    {
+        questions = new ArrayList<Question>();
+        genres = new ArrayList<String>();
+        populate();
+    }
 
     /**
      * Loads up the data if it hasnt been already
      */
-    public static void load()
+    public static Database getData()
     {
-        if (questions == null)
+        if (data == null)
         {
-            populate();
+            data = new Database();
         }
+        return data;
     }
 
     /**
      * Fills up database with pre-generated questions and genres
      */
-    private static void populate()
+    private void populate()
     {
         Question q;
-        questions = new ArrayList<Question>();
-        genres = new ArrayList<String>();
         ArrayList<String> answers = new ArrayList<String>();
 
         genres.add("Geography");
@@ -318,7 +325,7 @@ public class Database {
      * @param genre - genre to retrieve questions from (could be all)
      * @return arraylist of questions
      */
-    public static ArrayList<Question> retrieveQuestionsWithGenre(String genre)
+    public ArrayList<Question> retrieveQuestionsWithGenre(String genre)
     {
         ArrayList<Question> request; //arraylist to be filled with genre-matching questions
 
@@ -346,7 +353,7 @@ public class Database {
      * Add a question to the database
      * @param q - question to be added
      */
-    public static void addQuestion(Question q)
+    public void addQuestion(Question q)
     {
         questions.add(q);
     }
@@ -355,7 +362,7 @@ public class Database {
      * Add a genre to the database
      * @param g - genre to be added
      */
-    public static void addGenre(String g)
+    public void addGenre(String g)
     {
         genres.add(g);
     }
@@ -364,7 +371,7 @@ public class Database {
      * Get all genres in database
      * @return arraylist of genres
      */
-    public static ArrayList<String> getGenres()
+    public ArrayList<String> getGenres()
     {
         return clone(genres);
     }
@@ -376,7 +383,7 @@ public class Database {
      * @param <T> - template type (string, question, etc)
      * @return identical but different arraylist
      */
-    private static <T> ArrayList<T> clone(ArrayList<T> original)
+    private <T> ArrayList<T> clone(ArrayList<T> original)
     {
         ArrayList<T> copy = new ArrayList<T>();
         for (T s : original)

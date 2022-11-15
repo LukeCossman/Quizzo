@@ -90,16 +90,16 @@ public class AddQuestionFragment extends Fragment {
 
                     //If genre not in database, add it
                     boolean found = false;
-                    for (String g : Database.getGenres()) {
+                    for (String g : Database.getData().getGenres()) {
                         if (genre.equals(g)) {
                             found = true;
                         }
                     }
                     if (!found)
-                        Database.addGenre(genre);
+                        Database.getData().addGenre(genre);
 
                     //Add question to database
-                    Database.addQuestion(newQuestion);
+                    Database.getData().addQuestion(newQuestion);
 
                     //Go back to homescreen
                     Navigation.findNavController(view).

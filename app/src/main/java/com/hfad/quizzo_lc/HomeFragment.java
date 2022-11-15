@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
         Button btnAdd = view.findViewById(R.id.btn_add);
 
         //Set up the spinner of genres to choose from
-        List<String> genres = Database.getGenres(); //make arraylist of genres
+        List<String> genres = Database.getData().getGenres(); //make arraylist of genres
         genres.add("All"); //add the "all" option
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_spinner_item, genres); //Create an array adapter with arraylist
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
         btnPractice.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String genre = spnGenre.getSelectedItem().toString(); //get selected genre
-                ArrayList<Question> questions = Database.retrieveQuestionsWithGenre(genre); //get questions in that genre
+                ArrayList<Question> questions = Database.getData().retrieveQuestionsWithGenre(genre); //get questions in that genre
 
                 //Attach question to navigation action
                 HomeFragmentDirections.ActionHomeFragmentToPracticeFragment action =
